@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポケモン不思議のダンジョン TRPG キャラクターシート</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 10mm;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Yu Gothic', 'Meiryo', sans-serif;
+            font-size: 10pt;
+            line-height: 1.3;
+            padding: 5mm;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .container {
+            width: 277mm;
+            height: 190mm;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 3mm;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border: 3px solid #2c3e50;
+        }
+        
+        .left-panel, .right-panel {
+            padding: 4mm;
+            display: flex;
+            flex-direction: column;
+            gap: 3mm;
+        }
+        
+        .right-panel {
+            padding: 3mm;
+            gap: 1mm;
+        }
+        
+        .left-panel {
+            background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+            border-right: 3px solid #2c3e50;
+        }
+        
+        .right-panel {
+            background: linear-gradient(to bottom, #ffffff 0%, #f0f4f8 100%);
+        }
+        
+        /* セクションヘッダー */
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2mm 3mm;
+            font-weight: bold;
+            font-size: 11pt;
+            border-radius: 2mm;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        /* フィールド共通スタイル */
+        .field-box {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 2mm;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .field-row {
+            display: grid;
+            overflow: hidden;
+        }
+        
+        .field-label {
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: white;
+            padding: 2mm;
+            font-weight: bold;
+            font-size: 9pt;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 2px solid #2980b9;
+        }
+        
+        .field-input {
+            background: white;
+            padding: 2mm;
+            min-height: 8mm;
+        }
+        
+        /* 種族名・ニックネーム */
+        .name-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2mm;
+        }
+        
+        .name-row {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            border-radius: 2mm;
+            overflow: hidden;
+            border: 2px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        /* とくせい */
+        .tokusei-box {
+            background: white;
+            border: 2px solid #9b59b6;
+            border-radius: 2mm;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .tokusei-header {
+            background: linear-gradient(to right, #9b59b6, #8e44ad);
+            color: white;
+            padding: 2mm;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .tokusei-content {
+            padding: 2mm;
+            background: #faf5ff;
+            display: flex;
+            flex-direction: column;
+            gap: 1mm;
+        }
+        
+        .tokusei-field-label {
+            font-size: 8pt;
+            color: #6a1b9a;
+            font-weight: bold;
+            margin-bottom: 0.5mm;
+        }
+        
+        .tokusei-name-input {
+            border: 1px solid #d1c4e9;
+            padding: 2mm;
+            background: white;
+            font-weight: bold;
+            min-height: 6mm;
+        }
+        
+        .tokusei-effect-input {
+            border: 1px solid #d1c4e9;
+            padding: 2mm;
+            background: white;
+            min-height: 10mm;
+            font-size: 8pt;
+            line-height: 1.4;
+        }
+        
+        /* タイプ */
+        .type-row {
+            display: grid;
+            grid-template-columns: 70px 1fr 80px 1fr;
+            border-radius: 2mm;
+            overflow: hidden;
+            border: 2px solid #e74c3c;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .type-label {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            color: white;
+            padding: 2mm;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .type-input {
+            background: white;
+            padding: 2mm;
+            border-right: 2px solid #e74c3c;
+        }
+        
+        .type-usage-label {
+            background: linear-gradient(to right, #f39c12, #e67e22);
+            color: white;
+            padding: 2mm;
+            font-weight: bold;
+            font-size: 8pt;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 2px solid #e67e22;
+        }
+        
+        .type-usage-input {
+            background: white;
+            padding: 2mm;
+        }
+        
+        /* 能力値テーブル */
+        .ability-section {
+            background: white;
+            border: 2px solid #16a085;
+            border-radius: 2mm;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .ability-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .ability-table thead {
+            background: linear-gradient(to bottom, #16a085, #138f7a);
+        }
+        
+        .ability-table th {
+            color: white;
+            border: 1px solid #0e6655;
+            padding: 2mm;
+            text-align: center;
+            font-weight: bold;
+            font-size: 8pt;
+        }
+        
+        .ability-table td {
+            border: 1px solid #b2dfdb;
+            padding: 2mm;
+            text-align: center;
+            min-height: 8mm;
+            background: white;
+        }
+        
+        .ability-table .row-label {
+            background: linear-gradient(to right, #e8f5e9, #c8e6c9);
+            font-weight: bold;
+            font-size: 9pt;
+            color: #2e7d32;
+        }
+        
+        .ability-table tbody tr:hover td {
+            background: #f1f8e9;
+        }
+        
+        /* 戦闘能力値 */
+        .combat-section {
+            background: white;
+            border: 2px solid #e67e22;
+            border-radius: 2mm;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .combat-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .combat-table thead {
+            background: linear-gradient(to bottom, #e67e22, #d35400);
+        }
+        
+        .combat-table th {
+            color: white;
+            border: 1px solid #ca6f1e;
+            padding: 2mm;
+            text-align: center;
+            font-weight: bold;
+            font-size: 9pt;
+        }
+        
+        .combat-table td {
+            border: 1px solid #fadbd8;
+            padding: 3mm;
+            text-align: center;
+            font-size: 14pt;
+            font-weight: bold;
+            min-height: 12mm;
+            background: linear-gradient(to bottom, #fff9f5, #ffe8d8);
+        }
+        
+        /* わざセクション */
+        .waza-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 1.5mm;
+            font-weight: bold;
+            font-size: 11pt;
+            text-align: center;
+            border-radius: 2mm 2mm 0 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .waza-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1mm;
+            flex: 1;
+        }
+        
+        .waza-item {
+            background: white;
+            border: 2px solid #e91e63;
+            border-radius: 2mm;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .waza-name-section {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            background: linear-gradient(to right, #fce4ec, white);
+            border-bottom: 2px solid #f8bbd0;
+        }
+        
+        .waza-label {
+            background: linear-gradient(to right, #ec407a, #d81b60);
+            color: white;
+            padding: 1.5mm;
+            font-weight: bold;
+            font-size: 9pt;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .waza-name-input {
+            padding: 1.5mm;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .waza-type-section {
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            border-bottom: 1px solid #f8bbd0;
+            background: #fff5f8;
+        }
+        
+        .waza-type-input {
+            padding: 1.5mm;
+            display: flex;
+            align-items: center;
+        }
+        
+        .waza-kind-checks {
+            padding: 1.5mm;
+            display: flex;
+            gap: 3mm;
+            font-size: 8pt;
+            align-items: center;
+            border-left: 1px solid #f8bbd0;
+        }
+        
+        .waza-kind-checks label {
+            display: flex;
+            align-items: center;
+            gap: 1mm;
+            cursor: pointer;
+        }
+        
+        .waza-kind-checks input[type="checkbox"] {
+            cursor: pointer;
+        }
+        
+        .waza-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: 1px solid #f8bbd0;
+        }
+        
+        .waza-detail-cell {
+            border-right: 1px solid #f8bbd0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .waza-detail-cell:last-child {
+            border-right: none;
+        }
+        
+        .waza-detail-label {
+            background: linear-gradient(to bottom, #f8bbd0, #f48fb1);
+            color: #880e4f;
+            padding: 1mm;
+            text-align: center;
+            font-size: 8pt;
+            font-weight: bold;
+        }
+        
+        .waza-detail-input {
+            padding: 1mm;
+            text-align: center;
+            font-weight: bold;
+            min-height: 6mm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .waza-effect-area {
+            padding: 1.5mm;
+            min-height: 15mm;
+            font-size: 8pt;
+            line-height: 1.3;
+            background: #fffbfc;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 左パネル -->
+        <div class="left-panel">
+            <!-- 種族名・ニックネーム -->
+            <div class="name-section">
+                <div class="name-row">
+                    <div class="field-label">種族名</div>
+                    <div class="field-input"></div>
+                </div>
+                <div class="name-row">
+                    <div class="field-label">ニックネーム</div>
+                    <div class="field-input"></div>
+                </div>
+            </div>
+            
+            <!-- とくせい -->
+            <div class="tokusei-box">
+                <div class="tokusei-header">とくせい</div>
+                <div class="tokusei-content">
+                    <div>
+                        <div class="tokusei-field-label">とくせい名</div>
+                        <div class="tokusei-name-input"></div>
+                    </div>
+                    <div>
+                        <div class="tokusei-field-label">効果</div>
+                        <div class="tokusei-effect-input"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- タイプ -->
+            <div class="type-row">
+                <div class="type-label">タイプ</div>
+                <div class="type-input"></div>
+                <div class="type-usage-label">使用可能</div>
+                <div class="type-usage-input"></div>
+            </div>
+            
+            <!-- 基本能力値 -->
+            <div class="ability-section">
+                <table class="ability-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 70px;"></th>
+                            <th>たいりょく</th>
+                            <th>ちから</th>
+                            <th>にんたい</th>
+                            <th>ちえ</th>
+                            <th>せいしん</th>
+                            <th>きようさ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="row-label">基本</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">おおきさ</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">からだ</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">いどう</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">そのた①</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="row-label">そのた②</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 戦闘能力値 -->
+            <div class="combat-section">
+                <table class="combat-table">
+                    <thead>
+                        <tr>
+                            <th>HP</th>
+                            <th>こうげき</th>
+                            <th>ぼうぎょ</th>
+                            <th>とくこう</th>
+                            <th>とくぼう</th>
+                            <th>すばやさ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- 右パネル -->
+        <div class="right-panel">
+            <div class="waza-header">わざ（最大4つ / CP合計 ≦ 40）</div>
+            <div class="waza-list">
+                <!-- わざ1 -->
+                <div class="waza-item">
+                    <div class="waza-name-section">
+                        <div class="waza-label">わざ名</div>
+                        <div class="waza-name-input"></div>
+                    </div>
+                    <div class="waza-type-section">
+                        <div class="waza-label">タイプ</div>
+                        <div class="waza-type-input"></div>
+                        <div class="waza-kind-checks">
+                            <label><input type="checkbox"> ぶつり</label>
+                            <label><input type="checkbox"> とくしゅ</label>
+                            <label><input type="checkbox"> へんか</label>
+                        </div>
+                    </div>
+                    <div class="waza-details">
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">射程</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">対象</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">威力</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">CP</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                    </div>
+                    <div class="waza-effect-area"></div>
+                </div>
+                
+                <!-- わざ2 -->
+                <div class="waza-item">
+                    <div class="waza-name-section">
+                        <div class="waza-label">わざ名</div>
+                        <div class="waza-name-input"></div>
+                    </div>
+                    <div class="waza-type-section">
+                        <div class="waza-label">タイプ</div>
+                        <div class="waza-type-input"></div>
+                        <div class="waza-kind-checks">
+                            <label><input type="checkbox"> ぶつり</label>
+                            <label><input type="checkbox"> とくしゅ</label>
+                            <label><input type="checkbox"> へんか</label>
+                        </div>
+                    </div>
+                    <div class="waza-details">
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">射程</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">対象</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">威力</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">CP</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                    </div>
+                    <div class="waza-effect-area"></div>
+                </div>
+                
+                <!-- わざ3 -->
+                <div class="waza-item">
+                    <div class="waza-name-section">
+                        <div class="waza-label">わざ名</div>
+                        <div class="waza-name-input"></div>
+                    </div>
+                    <div class="waza-type-section">
+                        <div class="waza-label">タイプ</div>
+                        <div class="waza-type-input"></div>
+                        <div class="waza-kind-checks">
+                            <label><input type="checkbox"> ぶつり</label>
+                            <label><input type="checkbox"> とくしゅ</label>
+                            <label><input type="checkbox"> へんか</label>
+                        </div>
+                    </div>
+                    <div class="waza-details">
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">射程</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">対象</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">威力</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">CP</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                    </div>
+                    <div class="waza-effect-area"></div>
+                </div>
+                
+                <!-- わざ4 -->
+                <div class="waza-item">
+                    <div class="waza-name-section">
+                        <div class="waza-label">わざ名</div>
+                        <div class="waza-name-input"></div>
+                    </div>
+                    <div class="waza-type-section">
+                        <div class="waza-label">タイプ</div>
+                        <div class="waza-type-input"></div>
+                        <div class="waza-kind-checks">
+                            <label><input type="checkbox"> ぶつり</label>
+                            <label><input type="checkbox"> とくしゅ</label>
+                            <label><input type="checkbox"> へんか</label>
+                        </div>
+                    </div>
+                    <div class="waza-details">
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">射程</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">対象</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">威力</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                        <div class="waza-detail-cell">
+                            <div class="waza-detail-label">CP</div>
+                            <div class="waza-detail-input"></div>
+                        </div>
+                    </div>
+                    <div class="waza-effect-area"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
